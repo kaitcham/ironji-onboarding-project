@@ -1,3 +1,5 @@
+@use 'pages';
+@use 'components';
 @use 'abstracts' as *;
 
 *,
@@ -18,7 +20,7 @@ body {
 body {
   color: $primary-color;
   background: $background;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Geist, Geist_Mono, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

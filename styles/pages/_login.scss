@@ -1,0 +1,58 @@
+@use '../abstracts' as *;
+
+.login__page {
+  height: 100vh;
+  padding: 1rem;
+  @include flex-row(center, center);
+
+  &__container {
+    padding: 1.5rem 1rem;
+    border-radius: 5px;
+    background: $background;
+    width: min(100%, 500px);
+    box-shadow: 0 0 10px rgba($primary-color, 0.1);
+    @include breakpoint('md') {
+      padding: 2rem;
+    }
+
+    &__title {
+      font-weight: 500;
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      @include breakpoint('md') {
+        font-size: 1.85rem;
+        margin-bottom: 2rem;
+      }
+    }
+
+    &__buttons {
+      @include flex-row(center, space-between);
+
+      &--item {
+        width: 50%;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        text-align: center;
+        font-family: inherit;
+        transition: background 0.3s;
+        @include flex-row(center, center, 0.5rem);
+        @include breakpoint('md') {
+          padding: 0.75rem;
+          font-size: 1.125rem;
+        }
+
+        &:hover {
+          color: $background;
+          background: $primary-color;
+        }
+
+        .github-icon {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+}
