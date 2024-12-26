@@ -1,0 +1,13 @@
+@use '../abstracts' as *;
+
+.dashboard__page {
+  height: 100vh;
+  display: grid;
+  background: #f0f0f0;
+  grid-template-rows: auto 1fr;
+
+  @include breakpoint('md') {
+    grid-template-rows: 100vh;
+    grid-template-columns: auto 1fr;
+  }
+}
