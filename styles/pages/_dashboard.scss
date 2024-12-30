@@ -11,3 +11,28 @@
     grid-template-columns: auto 1fr;
   }
 }
+
+.dashboard__content {
+  &__header {
+    font-size: rem(16);
+    padding: rem(12) rem(15);
+    @include flex-row(space-between, center, 0);
+    @include breakpoint('md') {
+      background: #fff;
+      font-size: rem(20);
+    }
+
+    button {
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: rem(5);
+      padding: rem(5) rem(15);
+      background: $primary-color;
+      @include breakpoint('md') {
+        padding: rem(10) rem(20);
+      }
+    }
+  }
+}

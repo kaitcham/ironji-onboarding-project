@@ -1,8 +1,8 @@
 @use 'sass:math';
 
 @function rem($pixels) {
-  @if unitless($pixels) {
-    @return $pixels / 16 + rem;
+  @if math.is-unitless($pixels) {
+    @return math.div($pixels, 16) + rem;
   }
   @error "Don't use units with rem()";
 }
