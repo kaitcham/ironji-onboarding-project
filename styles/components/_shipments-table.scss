@@ -1,0 +1,86 @@
+@use '../abstracts' as *;
+
+.shipments__container {
+  margin: 0 auto;
+  padding: rem(15);
+  width: min(100%, rem(1200));
+
+  &__table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    @include breakpoint('lg') {
+      margin-top: rem(20);
+    }
+
+    th,
+    td {
+      padding: rem(4) rem(8);
+      text-align: left;
+      font-size: rem(14);
+      border: 1px solid #ddd;
+
+      @include breakpoint('md') {
+        padding: rem(10);
+      }
+
+      @include breakpoint('lg') {
+        padding: rem(14);
+        font-size: rem(16);
+      }
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #f2f2f2;
+    }
+
+    tr {
+      &:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      & a {
+        color: #46b750;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .page__info {
+      font-size: rem(14);
+    }
+
+    .pagination__button {
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: rem(8) rem(16);
+      background-color: #4caf50;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #45a049;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: #cccccc;
+      }
+    }
+  }
+}

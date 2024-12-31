@@ -3,6 +3,7 @@
 .dashboard__page {
   height: 100vh;
   display: grid;
+  overflow: hidden;
   background: #f0f0f0;
   grid-template-rows: auto 1fr;
 
@@ -13,12 +14,17 @@
 }
 
 .dashboard__content {
+  overflow-y: auto;
+
   &__header {
+    position: sticky;
+    top: 0;
     font-size: rem(16);
+    background: #fff;
     padding: rem(12) rem(15);
+    border-top: rem(1) solid #dcdcdca0;
     @include flex-row(space-between, center, 0);
     @include breakpoint('md') {
-      background: #fff;
       font-size: rem(20);
     }
 
