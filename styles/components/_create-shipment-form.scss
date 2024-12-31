@@ -55,10 +55,33 @@
       .field {
         flex: 1;
         display: flex;
+        position: relative;
         flex-direction: column;
         border-radius: 0.25rem;
         padding: 0.25rem 0.5rem;
         border: 1px solid $light-gray-color;
+
+        &.alert-validate {
+          margin-bottom: 1.75rem;
+          border-color: #c80000;
+
+          &::after {
+            content: attr(data-validate);
+            position: absolute;
+            left: 0;
+            bottom: -24px;
+            pointer-events: none;
+            color: #c80000;
+            font-size: rem(14);
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.4s, visibility 0.4s;
+          }
+        }
+
+        &.alert-group {
+          margin-bottom: 1rem;
+        }
 
         & span {
           cursor: text;
