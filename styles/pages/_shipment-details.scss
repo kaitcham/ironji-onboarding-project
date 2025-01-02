@@ -1,0 +1,131 @@
+@use '../abstracts/' as *;
+
+.shipment__details__page {
+  padding: rem(15);
+  overflow-y: auto;
+
+  @include breakpoint('md') {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content;
+    gap: rem(32);
+  }
+
+  &__content {
+    &__title {
+      font-size: rem(20);
+      margin-bottom: rem(10);
+    }
+
+    &__details {
+      padding: rem(20);
+      border-radius: 5px;
+      margin-bottom: rem(10);
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+      @include breakpoint('md') {
+        margin-bottom: 0;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+
+        strong {
+          font-weight: bold;
+          margin-right: 5px;
+          color: #555;
+        }
+      }
+    }
+  }
+
+  &__attachments {
+    @include flex-column(flex-start, flex-start, 0);
+
+    &__title {
+      width: 100%;
+      font-size: rem(20);
+      margin-bottom: rem(10);
+    }
+
+    .attachments__list {
+      width: 100%;
+      list-style: none;
+
+      a {
+        display: block;
+        color: #005af0;
+        margin-bottom: rem(10);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+
+        &:hover {
+          color: #010101;
+        }
+      }
+    }
+
+    .paragraph {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: rem(4);
+    }
+
+    &__empty {
+      width: 100%;
+      height: 100%;
+      background: #fcfcfc;
+      padding: rem(10) rem(15);
+
+      .drop__box {
+        padding: rem(16);
+        border: 3px dotted #a3a3a3;
+        @include flex-column(center, center, 0);
+
+        @include breakpoint('md') {
+          margin-top: rem(44);
+        }
+
+        @include breakpoint('lg') {
+          padding: rem(32);
+          margin-top: rem(32);
+        }
+
+        h4 {
+          color: #2e2e2e;
+          font-weight: 400;
+          font-size: rem(16);
+        }
+
+        p {
+          font-size: 12px;
+          color: #a3a3a3;
+          margin-top: 10px;
+          margin-bottom: 20px;
+        }
+
+        .select__btn {
+          border: none;
+          outline: none;
+          cursor: pointer;
+          transition: 0.3s;
+          color: #ffffff;
+          padding: 10px 20px;
+          text-decoration: none;
+          background-color: #005af0;
+
+          &:hover {
+            border: none;
+            color: #005af0;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #ffffff;
+            outline: 1px solid #010101;
+          }
+        }
+      }
+    }
+  }
+}
