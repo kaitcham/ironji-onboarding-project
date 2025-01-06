@@ -1,3 +1,4 @@
+import ReactQueryProvider from '@/app/providers';
 import DashboardSidebar from '@/components/DashboardSidebar';
 
 export default function DashboardLayout({
@@ -8,7 +9,7 @@ export default function DashboardLayout({
   return (
     <div className="dashboard__page">
       <DashboardSidebar />
-      {children}
+      <ReactQueryProvider>{children}</ReactQueryProvider>
     </div>
   );
 }
