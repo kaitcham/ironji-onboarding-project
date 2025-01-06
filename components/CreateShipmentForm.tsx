@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useQueryClient } from '@tanstack/react-query';
+import { createShipment } from '@/lib/server-functions';
 
 const shipmentSchema = yup.object().shape({
   first_name: yup.string().required('First Name is required'),
@@ -16,7 +18,14 @@ const shipmentSchema = yup.object().shape({
 
 type ShipmentData = yup.InferType<typeof shipmentSchema>;
 
-export default function CreateShipmentForm() {
+export default function CreateShipmentForm({
+  page,
+  length,
+}: {
+  page: number;
+  length: number;
+}) {
+  const queryClient = useQueryClient();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const {
     reset,
@@ -32,8 +41,9 @@ export default function CreateShipmentForm() {
     dialogRef.current?.close();
   };
 
-  const handleSubmitForm = (data: ShipmentData) => {
-    console.log(data);
+  const handleSubmitForm = async (data: ShipmentData) => {
+    await createShipment({ id: length + 1, ...data });
+    queryClient.invalidateQueries({ queryKey: ['shipments', page] });
     handleCloseModal();
   };
 
