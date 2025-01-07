@@ -19,12 +19,32 @@
 
     &__details {
       padding: rem(20);
+      position: relative;
       border-radius: 5px;
       margin-bottom: rem(10);
       border: 1px solid #ddd;
       background-color: #f9f9f9;
       @include breakpoint('md') {
         margin-bottom: 0;
+      }
+
+      &__actions {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        button {
+          border: none;
+          cursor: pointer;
+          color: #005af0;
+          padding: 10px 20px;
+          transition: 0.3s;
+
+          &:hover {
+            color: #010101;
+            background: #fff;
+          }
+        }
       }
 
       p {

@@ -1,10 +1,10 @@
 'use client';
 import * as yup from 'yup';
-import { useRef } from 'react';
+import { JSX, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient } from '@tanstack/react-query';
-import { createShipment } from '@/lib/server-functions';
+import { createShipment, updateShipment } from '@/lib/server-functions';
 
 const shipmentSchema = yup.object().shape({
   first_name: yup.string().required('First Name is required'),
@@ -18,13 +18,19 @@ const shipmentSchema = yup.object().shape({
 
 type ShipmentData = yup.InferType<typeof shipmentSchema>;
 
+type CreateShipmentFormProps = {
+  length?: number;
+  queryKey: (string | number)[];
+  buttonContent: string | JSX.Element;
+  shipmentToUpdate?: { id: string } & ShipmentData;
+};
+
 export default function CreateShipmentForm({
-  page,
   length,
-}: {
-  page: number;
-  length: number;
-}) {
+  queryKey,
+  buttonContent,
+  shipmentToUpdate,
+}: CreateShipmentFormProps) {
   const queryClient = useQueryClient();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const {
@@ -33,6 +39,7 @@ export default function CreateShipmentForm({
     handleSubmit,
     formState: { errors },
   } = useForm<ShipmentData>({
+    defaultValues: shipmentToUpdate,
     resolver: yupResolver(shipmentSchema),
   });
 
@@ -42,14 +49,19 @@ export default function CreateShipmentForm({
   };
 
   const handleSubmitForm = async (data: ShipmentData) => {
-    await createShipment({ id: length + 1, ...data });
-    queryClient.invalidateQueries({ queryKey: ['shipments', page] });
+    shipmentToUpdate
+      ? await updateShipment({ id: shipmentToUpdate.id, ...data })
+      : await createShipment({ id: String(length! + 1), ...data });
+
+    queryClient.invalidateQueries({ queryKey });
     handleCloseModal();
   };
 
   return (
     <>
-      <button onClick={() => dialogRef.current?.showModal()}>+ Shipment</button>
+      <button onClick={() => dialogRef.current?.showModal()}>
+        {buttonContent}
+      </button>
       <dialog ref={dialogRef} className="create__shipment__modal">
         <div className="create__shipment__modal__close">
           <button onClick={handleCloseModal}>✖</button>
@@ -137,7 +149,9 @@ export default function CreateShipmentForm({
                 <input type="text" id="state" {...register('state')} />
               </label>
             </div>
-            <button className="submit__btn">Create Shipment</button>
+            <button className="submit__btn">
+              {shipmentToUpdate ? 'Update Shipment' : 'Create Shipment'}
+            </button>
           </form>
         </div>
       </dialog>

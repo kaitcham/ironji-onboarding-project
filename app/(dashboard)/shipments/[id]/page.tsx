@@ -1,9 +1,19 @@
-import AttachementHandler from '@/components/AttachementHandler';
+'use client';
+import { useParams } from 'next/navigation';
+import EditIcon from '@/components/EditIcon';
 import { getShipment } from '@/lib/server-functions';
+import AttachementHandler from '@/components/AttachementHandler';
+import CreateShipmentForm from '@/components/CreateShipmentForm';
+import { useQuery } from '@tanstack/react-query';
 
-export default async function page({ params }: { params: { id: string } }) {
-  const { id } = await params;
-  const shipment = await getShipment(id);
+export default function page() {
+  const { id } = useParams<{ id: string }>();
+  const { isLoading, data: shipment } = useQuery({
+    queryKey: ['shipment', id],
+    queryFn: () => getShipment(String(id)),
+  });
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="shipment__details__page">
@@ -12,6 +22,13 @@ export default async function page({ params }: { params: { id: string } }) {
           Shipment #{shipment.id}
         </h1>
         <div className="shipment__details__page__content__details">
+          <div className="shipment__details__page__content__details__actions">
+            <CreateShipmentForm
+              queryKey={['shipment', id]}
+              shipmentToUpdate={shipment}
+              buttonContent={<EditIcon />}
+            />
+          </div>
           <p>
             <strong>First Name:</strong> {shipment.first_name}
           </p>

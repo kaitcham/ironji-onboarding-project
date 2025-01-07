@@ -18,7 +18,11 @@ export default function page() {
     <div className="dashboard__content">
       <div className="dashboard__content__header">
         <h3>Shipments</h3>
-        <CreateShipmentForm page={page} length={shipments.length} />
+        <CreateShipmentForm
+          length={shipments?.items}
+          buttonContent="+ Shipment"
+          queryKey={['shipments', page]}
+        />
       </div>
       <ShipmentsTable
         page={page}
